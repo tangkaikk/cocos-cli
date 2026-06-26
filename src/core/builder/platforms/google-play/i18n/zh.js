@@ -3,6 +3,10 @@
 module.exports = {
     title: 'Google Play',
     options: {
+        armeabiv7a: 'armeabi-v7a',
+        arm64v8a: 'arm64-v8a',
+        x86: 'x86',
+        x8664: 'x86_64',
         package_name: '应用 ID 名称',
         package_name_hint: '请输入应用 ID，如 com.example.demo',
         screen_orientation: '屏幕方向',

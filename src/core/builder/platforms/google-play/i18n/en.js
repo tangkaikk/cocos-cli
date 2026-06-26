@@ -3,6 +3,10 @@
 module.exports = {
     title: 'Google Play',
     options: {
+        armeabiv7a: 'armeabi-v7a',
+        arm64v8a: 'arm64-v8a',
+        x86: 'x86',
+        x8664: 'x86_64',
         package_name: 'Game Package Name',
         package_name_hint: 'Enter the name of the game package, such as: com.example.demo',
 
