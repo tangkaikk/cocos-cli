@@ -3,7 +3,7 @@
 import { join } from 'path';
 import { IBuildResult, IGooglePlayInternalBuildOptions } from './type';
 import { BuilderCache, IBuilder } from '../../../@types/protected';
-import { checkAndroidAPILevels, generateAndroidOptions } from './utils';
+import { checkAndroidAPILevels } from './utils';
 import * as nativeCommonHook from '../../native-common/hooks';
 import { GlobalPaths } from '../../../../../global';
 import { getCustomIconInfo } from './custom-icon';
@@ -29,9 +29,14 @@ export async function onAfterBuild(this: IBuilder, options: IGooglePlayInternalB
 
 export async function onAfterInit(this: IBuilder, options: IGooglePlayInternalBuildOptions, result: IBuildResult, _cache: BuilderCache) {
     await nativeCommonHook.onAfterInit.call(this, options, result);
-    // 没有pink传递andrdoid配置时，直接使用默认的android配置
-    const googlePlay = await generateAndroidOptions(options);
-    options.packages['google-play'] = googlePlay;
+
+    const googlePlay = options.packages['google-play'];
+    googlePlay.orientation = googlePlay.orientation || {
+        landscapeRight: true,
+        landscapeLeft: true,
+        portrait: false,
+        upsideDown: false,
+    };
     const renderBackEnd = googlePlay.renderBackEnd;
 
     const res = await checkAndroidAPILevels(googlePlay.apiLevel, options);
